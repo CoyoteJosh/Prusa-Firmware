@@ -2962,7 +2962,8 @@ bool lcd_calibrate_z_end_stop_manual(bool only_z)
             manage_inactivity(true);
             if (abs(lcd_encoder_diff) >= ENCODER_PULSES_PER_STEP) {
                 _delay(50);
-                lcd_encoder += abs(lcd_encoder_diff / ENCODER_PULSES_PER_STEP);
+				// I changed this to -= to get the scroll direction to invert (i think changing the pins in pins_einsy_1_0.h would work better) JPH
+                lcd_encoder -= abs(lcd_encoder_diff / ENCODER_PULSES_PER_STEP);
                 lcd_encoder_diff = 0;
                 if (! planner_queue_full()) {
                     // Only move up, whatever direction the user rotates the encoder.
@@ -8151,6 +8152,7 @@ void menu_lcd_lcdupdate_func(void)
 		{
 			if (lcd_draw_update == 0)
 			lcd_draw_update = 1;
+		    // I changed this to -= to get the scroll direction to invert (i think changing the pins in pins_einsy_1_0.h would work better) JPH
 			lcd_encoder += lcd_encoder_diff / ENCODER_PULSES_PER_STEP;
 			Sound_MakeSound(e_SOUND_TYPE_EncoderMove);
 			lcd_encoder_diff = 0;

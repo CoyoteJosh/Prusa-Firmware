@@ -41,7 +41,7 @@
 
 // Steps per unit {X,Y,Z,E}
 //#define DEFAULT_AXIS_STEPS_PER_UNIT   {100,100,3200/8,140}
-#define DEFAULT_AXIS_STEPS_PER_UNIT   {100,100,3200/8,280}
+#define DEFAULT_AXIS_STEPS_PER_UNIT   {100,100,3200/8,830} //Extruder steps changed to 830 JPH
 //#define DEFAULT_AXIS_STEPS_PER_UNIT   {100,100,3200/8,560}
 
 // Endstop inverting
@@ -50,7 +50,7 @@
 #define Z_MIN_ENDSTOP_INVERTING 0 // set to 1 to invert the logic of the endstop.
 
 // Direction inverting
-#define INVERT_X_DIR 1    // for Mendel set to 0, for Orca set to 1
+#define INVERT_X_DIR 0   // for Mendel set to 0, for Orca set to 1 (Direct drive is inverted so 0) JPH
 #define INVERT_Y_DIR 0    // for Mendel set to 1, for Orca set to 0
 #define INVERT_Z_DIR 1     // for Mendel set to 0, for Orca set to 1
 #define INVERT_E0_DIR 0   // for direct drive extruder v9 set to 1, for geared extruder set to 0
@@ -58,16 +58,19 @@
 #define INVERT_E2_DIR 0   // for direct drive extruder v9 set to 1, for geared extruder set to 0
 
 // Home position
-#define MANUAL_X_HOME_POS 0
+#define MANUAL_X_HOME_POS -27 // Location of nozzle after homing JPH
 #define MANUAL_Y_HOME_POS -2.2
 #define MANUAL_Z_HOME_POS 0.2
 
 // Travel limits after homing
-#define X_MAX_POS 255
-#define X_MIN_POS 0
-#define Y_MAX_POS 212.5
-#define Y_MIN_POS -4 //orig -4
-#define Z_MAX_POS 210
+#define X_BED_SIZE 220
+#define Y_BED_SIZE 220
+
+#define X_MAX_POS (X_BED_SIZE + 48)
+#define X_MIN_POS -27
+#define Y_MAX_POS (Y_BED_SIZE - 20)
+#define Y_MIN_POS -5 //orig -4
+#define Z_MAX_POS 246
 #define Z_MIN_POS 0.15
 
 // Canceled home position
@@ -123,16 +126,16 @@
 #define CRASHDET_COUNTER_MAX 3 
 
 // New XYZ calibration
-#define NEW_XYZCAL
+// #define NEW_XYZCAL //commented out JPH
 
 // Watchdog support
 #define WATCHDOG
 
 // Power panic
-#define UVLO_SUPPORT
+// #define UVLO_SUPPORT // requires special power supply commented out JPH
 
 // Fan check
-#define FANCHECK
+// #define FANCHECK /// tachometer doesn't seem to register on hotend fan comment out JPH
 
 // Safety timer
 #define SAFETYTIMER
@@ -149,8 +152,8 @@
 //#define MENU_SERIAL_DUMP        // Enable "Memory dump" in Settings menu
 
 // Filament sensor
-#define FILAMENT_SENSOR
-#define PAT9125
+// #define FILAMENT_SENSOR // No filament sensor so comment out JPH
+//  #define PAT9125
 
 // Backlash - 
 //#define BACKLASH_X
@@ -433,10 +436,12 @@
 #define MBL_Z_STEP 0.01
 
 // Mesh definitions
-#define MESH_MIN_X 24
-#define MESH_MAX_X 228
-#define MESH_MIN_Y 6
-#define MESH_MAX_Y 210
+// mesh definitions JPH
+#define SAFE_PROBE_EDGE_OFFSET 35
+#define MESH_MIN_X SAFE_PROBE_EDGE_OFFSET
+#define MESH_MAX_X (X_BED_SIZE - SAFE_PROBE_EDGE_OFFSET)
+#define MESH_MIN_Y SAFE_PROBE_EDGE_OFFSET
+#define MESH_MAX_Y (Y_BED_SIZE - SAFE_PROBE_EDGE_OFFSET)
 
 // Mesh upsample definition
 #define MESH_NUM_X_POINTS 7
@@ -452,8 +457,8 @@
 #define MESH_HOME_Z_SEARCH 5.0f           // Z lift for homing, mesh bed leveling etc.
 
 #define X_PROBE_OFFSET_FROM_EXTRUDER 23     // Z probe to nozzle X offset: -left  +right
-#define Y_PROBE_OFFSET_FROM_EXTRUDER 5     // Z probe to nozzle Y offset: -front +behind
-#define Z_PROBE_OFFSET_FROM_EXTRUDER -0.4  // Z probe to nozzle Z offset: -below (always!)
+#define Y_PROBE_OFFSET_FROM_EXTRUDER 39     // Z probe to nozzle Y offset: -front +behind JPH
+#define Z_PROBE_OFFSET_FROM_EXTRUDER -22  // Z probe to nozzle Z offset: -below (always!) JPH
 #endif
 
 // Bed Temperature Control
@@ -597,7 +602,7 @@
 #elif defined(E3D_PT100_BED_NO_AMP)
 #define TEMP_SENSOR_BED 148
 #else
-#define TEMP_SENSOR_BED 1
+#define TEMP_SENSOR_BED 5 // thermistor for the bed is different so changed to 5 JPH
 #endif
 #define TEMP_SENSOR_PINDA 1
 #define TEMP_SENSOR_AMBIENT 2000

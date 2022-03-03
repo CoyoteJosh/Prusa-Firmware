@@ -326,10 +326,10 @@ your extruder heater takes 2 minutes to hit the target on heating.
   #ifdef AUTO_BED_LEVELING_GRID
 
     // set the rectangle in which to probe
-    #define LEFT_PROBE_BED_POSITION 15
-    #define RIGHT_PROBE_BED_POSITION 170
-    #define BACK_PROBE_BED_POSITION 180
-    #define FRONT_PROBE_BED_POSITION 20
+    #define LEFT_PROBE_BED_POSITION 20 //JPH
+    #define RIGHT_PROBE_BED_POSITION 165 //JPH
+    #define BACK_PROBE_BED_POSITION 175 //JPH
+    #define FRONT_PROBE_BED_POSITION 25 //JPH
 
      // set the number of grid points per dimension
      // I wouldn't see a reason to go above 3 (=9 probing points on the bed)
@@ -352,8 +352,8 @@ your extruder heater takes 2 minutes to hit the target on heating.
 
   // these are the offsets to the probe relative to the extruder tip (Hotend - Probe)
   // X and Y offsets must be integers
-  #define X_PROBE_OFFSET_FROM_EXTRUDER -25
-  #define Y_PROBE_OFFSET_FROM_EXTRUDER -29
+  #define X_PROBE_OFFSET_FROM_EXTRUDER 40 //JPH
+  #define Y_PROBE_OFFSET_FROM_EXTRUDER -25 //JPH
   #define Z_PROBE_OFFSET_FROM_EXTRUDER -12.35
 
   #define Z_RAISE_BEFORE_HOMING 5       // (in mm) Raise Z before homing (G28) for Probe Clearance.
